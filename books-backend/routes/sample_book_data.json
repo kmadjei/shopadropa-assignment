@@ -1,0 +1,16 @@
+[
+    {
+        "books_id": 2,
+        "name": "Cosmoknights (Book One)",
+        "author": "Hannah Templer",
+        "year_of_publishing": 1908,
+        "isbn": "978-1-60309-454-2 "
+    },
+    {
+        "books_id": 3,
+        "name": "Bacchus (Omnibus Edition): Volume Two",
+        "author": "Eddie Campbell",
+        "year_of_publishing": 2015,
+        "isbn": "978-1-60309-026-1"
+    }
+]
