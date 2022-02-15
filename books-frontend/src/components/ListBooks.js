@@ -14,20 +14,28 @@ const ListBooks = (props) => {
 
     const handleDelete = async (id, name) => {
         const delete_book = window.confirm(`Are you sure you want to delete "${name}"`);
+        try {
+            if (delete_book){
+                let response = await fetch(
+                    `${process.env.REACT_APP_API_URL}/books/${id}`,
+                    { method: "DELETE" }
+                );
 
-        if (delete_book){
-            let response = await fetch(
-                `http://localhost:4000/books/${id}`,
-                { method: "DELETE" }
-            );
-            let newBooks = await response.json();
-           
-            setBooks(newBooks.filter(book => book.books_id !== id));
-            alert(`Book: ${name} is deleted`);
-        } else {
-            // back to home page
-            navigate('/');
+                let getUpdateBooks = await fetch(`${process.env.REACT_APP_API_URL}/books`);
+                let newBooks = await getUpdateBooks.json();
+               
+                setBooks(newBooks.filter(book => book.books_id != id));
+                alert(`Book: ${name} is deleted`);
+                
+            }else {
+                // back to home page
+                navigate('/');
+            }
+        } catch (error) {
+            console.error(error.message);
+            navigate('*')
         }
+        
     }
 
     return ( 
@@ -57,12 +65,6 @@ const ListBooks = (props) => {
                         </ul>
                         <div className="card-body">
                             <Link to={`/edit_book/${book.books_id}`}
-                            // to={navigate(, {state: {
-                            //     title: book.name,
-                            //     author: book.author,
-                            //     published: book.year_of_publishing,
-                            //     isbn: book.isbn
-                            // }})}
                             className="card-link btn btn-outline-primary"
                             >
                                 Edit

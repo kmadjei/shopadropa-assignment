@@ -6,23 +6,20 @@ const BookForm = ({ formAction }) => {
 
     let navigate = useNavigate();
     const { id } = useParams();
-    //console.Console.log(param);
 
-    //const [book, setBook] = useState();
 
     const [processing, setProcessing] = useState(false);
     const [title, setTitle] = useState('');
     const [author, setAuthor] = useState('');
     const [publish, setPublish] = useState('');
     const [isbn, setISBN] = useState();
-    // const [isPending, setIsPending] = useState(false);
 
    
     useEffect(async () => {
         // retrieve data to be editeds
         if (formAction === 'edit') {
             try {
-                const res = await fetch(`http://127.0.0.1:4000/books/${id}`);
+                const res = await fetch(`${process.env.REACT_APP_API_URL}/books/${id}`);
                 let bookData = await res.json();
 
                 setTitle(bookData.name);
@@ -48,7 +45,7 @@ const BookForm = ({ formAction }) => {
             // Edit Book
             try {
                 await fetch(
-                    `http://127.0.0.1:4000/books/${id}` 
+                    `${process.env.REACT_APP_API_URL}/books/${id}` 
                   , {
                   method: 'PUT',
                   headers: { "Content-Type": "application/json" },
@@ -76,7 +73,7 @@ const BookForm = ({ formAction }) => {
             
             try {
                 await fetch(
-                    `http://127.0.0.1:4000/books/add_a_book` 
+                    `${process.env.REACT_APP_API_URL}/books/add_a_book` 
                   , {
                   method: 'POST',
                   headers: { "Content-Type": "application/json" },
@@ -84,7 +81,7 @@ const BookForm = ({ formAction }) => {
                         name: title,
                         author: author,
                         year_of_publishing: publish,
-                        isbn: isbn
+                        ISBN: isbn
                     }) 
                 });
 
